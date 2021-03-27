@@ -1,5 +1,7 @@
 const express=require('express')
 const request=require('request')
+const dotenv=require('dotenv')
+dotenv.config()
 
 const app=express()
 
@@ -13,7 +15,7 @@ app.get('/',(req,res)=>{
 
 app.get('/result',(req,res)=>{
     
-    const url = `http://www.omdbapi.com/?apikey=113970e7&s=${req.query.movieName}`
+    const url = `http://www.omdbapi.com/?apikey=${process.env.API_KEY}&s=${req.query.movieName}`
     request(url, function(error,response,body){
         if(!error && response.statusCode===200) {
             const data = JSON.parse(body)
@@ -28,7 +30,7 @@ app.get('/result',(req,res)=>{
 })
 app.get('/result/:id',(req,res)=>{
     
-    const url = `http://www.omdbapi.com/?apikey=113970e7&i=${req.params.id}`
+    const url = `http://www.omdbapi.com/?apikey=${process.env.API_KEY}&i=${req.params.id}`
     request(url, function(error,response,body){
         if(!error && response.statusCode===200) {
             const data = JSON.parse(body)
